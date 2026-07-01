@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+  <h2>书籍目录</h2>
+  <a href="{{ url_for('importbooks') }}" class="btn">导入书籍表格</a>
+</div>
+
+<form method="get" action="{{ url_for('catalog') }}" style="background:#f6f8fa; padding:15px; border-radius:6px; border:1px solid #d0d7de; margin-bottom:20px;">
+  <div style="margin-bottom:10px;">
+    <strong>地区：</strong>
+    <button type="button" onclick="selectAllRegions()">全选</button>
+    <button type="button" onclick="invertRegions()">反选</button>
+    <button type="button" onclick="clearRegions()">清空</button>
+    <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:5px;" id="region-container">
+      {% for region in all_regions %}
+        <label style="cursor:pointer;">
+          <input type="checkbox" name="region" value="{{ region }}" {% if region in sel_regions %}checked{% endif %} onchange="this.form.submit()"> {{ region }}
+        </label>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div style="margin-bottom:10px; display:flex; flex-wrap:wrap; gap:10px; align-items:center;">
+    <strong>内容形式：</strong>
+    <select name="has_txt" onchange="this.form.submit()" style="width:auto;">
+      <option value="">文字描述: 全部</option>
+      <option value="1" {% if sel_has_txt == '1' %}selected{% endif %}>有</option>
+      <option value="0" {% if sel_has_txt == '0' %}selected{% endif %}>无</option>
+    </select>
+    <select name="has_line" onchange="this.form.submit()" style="width:auto;">
+      <option value="">线条图: 全部</option>
+      <option value="1" {% if sel_has_line == '1' %}selected{% endif %}>有</option>
+      <option value="0" {% if sel_has_line == '0' %}selected{% endif %}>无</option>
+      <option value="2" {% if sel_has_line == '2' %}selected{% endif %}>部分有</option>
+    </select>
+    <select name="has_spec" onchange="this.form.submit()" style="width:auto;">
+      <option value="">标本图: 全部</option>
+      <option value="1" {% if sel_has_spec == '1' %}selected{% endif %}>有</option>
+      <option value="0" {% if sel_has_spec == '0' %}selected{% endif %}>无</option>
+      <option value="2" {% if sel_has_spec == '2' %}selected{% endif %}>部分有</option>
+    </select>
+    <select name="has_env" onchange="this.form.submit()" style="width:auto;">
+      <option value="">生境图: 全部</option>
+      <option value="1" {% if sel_has_env == '1' %}selected{% endif %}>有</option>
+      <option value="0" {% if sel_has_env == '0' %}selected{% endif %}>无</option>
+      <option value="2" {% if sel_has_env == '2' %}selected{% endif %}>部分有</option>
+    </select>
+    <select name="has_micro" onchange="this.form.submit()" style="width:auto;">
+      <option value="">显微图: 全部</option>
+      <option value="1" {% if sel_has_micro == '1' %}selected{% endif %}>有</option>
+      <option value="0" {% if sel_has_micro == '0' %}selected{% endif %}>无</option>
+      <option value="2" {% if sel_has_micro == '2' %}selected{% endif %}>部分有</option>
+    </select>
+    <select name="has_micro_section" onchange="this.form.submit()" style="width:auto;">
+      <option value="">显微剖面: 全部</option>
+      <option value="1" {% if sel_has_micro_section == '1' %}selected{% endif %}>有</option>
+      <option value="0" {% if sel_has_micro_section == '0' %}selected{% endif %}>无</option>
+      <option value="2" {% if sel_has_micro_section == '2' %}selected{% endif %}>部分有</option>
+    </select>
+    <select name="has_elec" onchange="this.form.submit()" style="width:auto;">
+      <option value="">电镜图: 全部</option>
+      <option value="1" {% if sel_has_elec == '1' %}selected{% endif %}>有</option>
+      <option value="0" {% if sel_has_elec == '0' %}selected{% endif %}>无</option>
+      <option value="2" {% if sel_has_elec == '2' %}selected{% endif %}>部分有</option>
+    </select>
+  </div>
+
+  <div style="display:flex; gap:10px; align-items:center;">
+    <strong>排序：</strong>
+    <label><input type="radio" name="sort_by" value="default" {% if sort_by == 'default' %}checked{% endif %} onchange="this.form.submit()"> 按简称排序</label>
+    <label><input type="radio" name="sort_by" value="date_desc" {% if sort_by == 'date_desc' %}checked{% endif %} onchange="this.form.submit()"> 新出版靠前</label>
+    <label><input type="radio" name="sort_by" value="date_asc" {% if sort_by == 'date_asc' %}checked{% endif %} onchange="this.form.submit()"> 新出版靠后</label>
+    <button type="submit" class="btn primary" style="margin-left:auto;">筛选与排序</button>
+  </div>
+</form>
+
+<script>
+function selectAllRegions() {
+  document.querySelectorAll('input[name="region"]').forEach(el => el.checked = true);
+  document.querySelector('form[action="{{ url_for('catalog') }}"]').submit();
+}
+function invertRegions() {
+  document.querySelectorAll('input[name="region"]').forEach(el => el.checked = !el.checked);
+  document.querySelector('form[action="{{ url_for('catalog') }}"]').submit();
+}
+function clearRegions() {
+  document.querySelectorAll('input[name="region"]').forEach(el => el.checked = false);
+  document.querySelector('form[action="{{ url_for('catalog') }}"]').submit();
+}
+</script>
+
+{% if books %}
+  <div class="muted" style="margin-bottom:10px;">共 {{ books|length }} 本书籍</div>
+  <div style="display:flex; flex-direction:column; gap:12px;">
+    {% for b in books %}
+      <div class="card" style="display:flex; gap:12px; align-items:flex-start;">
+        <div style="width:150px; flex:0 0 150px;">
+          {% if b.cover_image %}
+            <img src="{{ url_for('img_file', filename=b.cover_image) }}" alt="{{ b.book_name }} 封面" style="width:100%; height:200px; object-fit:cover; border:1px solid #d0d7de; border-radius:6px;">
+          {% else %}
+            <div style="width:100%; height:200px; border:1px dashed #d0d7de; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#57606a;">暂无封面</div>
+          {% endif %}
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:18px; font-weight:600; margin-bottom:6px; display:flex; align-items:center; gap:8px;">
+            <span>{{ b.book_name }}（{{ b.data_count }}条）</span>
+            {% if b.has_pdf %}
+              <span style="display:inline-block; padding:0 6px; font-size:12px; line-height:18px; border-radius:4px; background:#ffebe9; color:#6a1b1a; border:1px solid #ffd1cf;">PDF</span>
+            {% endif %}
+          </div>
+          <div class="muted" style="margin-bottom:6px;">
+            {{ b.publisher or '—' }} · {{ b.publish_date or '—' }}
+          </div>
+          {% if b.notes %}
+            <div style="margin-bottom:6px; color:green;">备注：{{ b.notes }}</div>
+          {% endif %}
+          <div style="margin-bottom:6px;">
+            地区：<code>{{ b.region or '—' }}</code> ｜ 价格：<code>{{ b.price if b.price is not none else '—' }}</code> ｜ 总页数：<code>{{ b.page if b.page is not none else '—' }}</code> ｜ 收录苔藓：<code>{{ b.moss_count if b.moss_count is not none else '—' }}</code>
+          </div>
+          <div style="margin-bottom:6px;">
+            作者：{{ b.author or '—' }} 
+          </div>
+          <div style="margin-bottom:6px;">
+            内容形式：
+            <span style="margin-right:8px; color:{{ 'red' if b.has_txt == 1 else 'gray' if b.has_txt == 0 else '' }}">{{ '有文字描述' if b.has_txt else '无文字描述' }}</span>
+            <span style="margin-right:8px; color:{{ 'red' if b.has_line == 1 or b.has_line == 2 else 'gray' if b.has_line == 0 else '' }}">{{ '有线条图' if b.has_line == 1 else '部分有线条图' if b.has_line == 2 else '无线条图' }}</span>
+            <span style="margin-right:8px; color:{{ 'red' if b.has_spec == 1 or b.has_spec == 2 else 'gray' if b.has_spec == 0 else '' }}">{{ '有标本图' if b.has_spec == 1 else '部分有标本图' if b.has_spec == 2 else '无标本图' }}</span>
+            <span style="margin-right:8px; color:{{ 'red' if b.has_env == 1 or b.has_env == 2 else 'gray' if b.has_env == 0 else '' }}">{{ '有生境图' if b.has_env == 1 else '部分有生境图' if b.has_env == 2 else '无生境图' }}</span>
+            <span style="margin-right:8px; color:{{ 'red' if b.has_micro == 1 or b.has_micro == 2 else 'gray' if b.has_micro == 0 else '' }}">{{ '有显微图' if b.has_micro == 1 else '部分有显微图' if b.has_micro == 2 else '无显微图' }}</span>
+            <span style="color:{{ 'red' if b.has_micro_section == 1 or b.has_micro_section == 2 else 'gray' if b.has_micro_section == 0 else '' }}">{{ '有显微剖面' if b.has_micro_section == 1 else '部分有显微剖面' if b.has_micro_section == 2 else '无显微剖面' }}</span>
+            <span style="margin-right:8px; color:{{ 'red' if b.has_elec == 1 or b.has_elec == 2 else 'gray' if b.has_elec == 0 else '' }}">{{ '有电镜图' if b.has_elec == 1 else '部分有电镜图' if b.has_elec == 2 else '无电镜图' }}</span>
+          </div>
+          <div style="display:flex; gap:8px;">
+            {% if b.data_count|int > 0 %}
+              <a class="btn" href="{{ url_for('browse', book_id=b.id) }}">查看本书苔藓页码</a>
+            {% endif %}
+            <form method="post" action="{{ url_for('delete_book', book_id=b.id) }}" onsubmit="return confirm('删除以后，无法恢复，只能通过重新导入books.xlxs表格恢复，确认删除？');" style="display:inline;">
+              <button type="submit" class="btn" style="background-color: #fff; color: #cf222e; border-color: rgba(27,31,36,0.15);">我不看这本书，删除</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="flash error">未找到书籍数据。</div>
+{% endif %}
+
+{% endblock %}

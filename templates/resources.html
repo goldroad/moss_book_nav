@@ -1,0 +1,397 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  .fixed-nav {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    width: 120px;
+    background-color: #fff;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    padding: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+  }
+  .fixed-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .fixed-nav li {
+    margin-bottom: 8px;
+  }
+  .fixed-nav a {
+    text-decoration: none;
+    color: #0969da;
+    font-size: 14px;
+    display: block;
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+  .fixed-nav a:hover {
+    background-color: #f6f8fa;
+  }
+  @media (max-width: 768px) {
+    .fixed-nav {
+      display: none; /* Mobile hide or adjust */
+    }
+  }
+</style>
+
+<div class="fixed-nav">
+  <div style="font-weight:bold; margin-bottom:8px; padding-left:8px;">快速导航</div>
+  <ul>
+    <li><a href="#section-lecture">演讲视频</a></li>
+    <li><a href="#section-science">科普视频</a></li>
+    <li><a href="#section-articles">推荐文章</a></li>
+    <li><a href="#section-websites">学习网站</a></li>
+    <li><a href="#section-accounts">推荐账号</a></li>
+  </ul>
+</div>
+
+  <h1 id="section-lecture">演讲视频</h1>
+  <div class="card">
+    <ul style="line-height: 2; font-size: 16px;">
+      <li><a href="https://mp.weixin.qq.com/s/1KxBGDC-FO2TLqtUU7SWWw" target="_blank" rel="noopener">张力：2020第一期：苔藓的生存绝技</a></li>
+      <li><a href="https://www.yixi.tv/h5/speech/533/" target="_blank" rel="noopener">【一席】张力：苔藓森林</a></li>
+      <li><a href="https://mp.weixin.qq.com/s/7dGnLBbzsQddVrUxw6826Q?scene=1" target="_blank" rel="noopener">【格致论道】张力：走进苔藓秘境</a></li>
+      <li><a href="https://mp.weixin.qq.com/s/2P1PYHa4Q3FQ33y-dejWPQ" target="_blank" rel="noopener">【格致论道】马文章：来自苔藓的问候</a></li>
+    </ul>
+  </div>
+
+  <h1 id="section-science">科普视频</h1>
+  <div class="card">
+    <ul style="line-height: 2; font-size: 16px;">
+      <li><a href="https://www.bilibili.com/video/BV1Ae4y167n6" target="_blank" rel="noopener">仙湖植物园张力研究员∣苔藓植物入门</a></li>
+      <li><a href="https://www.bilibili.com/video/BV1Ww411p786" target="_blank" rel="noopener">【双语纪录片】苔藓的奇妙世界</a></li>
+      <li><a href="https://www.bilibili.com/video/BV1bB3MzUEt4/" target="_blank" rel="noopener">森林的生命：苔藓植物</a></li>
+      <li><a href="https://weibo.com/1787043322/KkIEK0Aiy" target="_blank" rel="noopener">探秘显微镜下的迷你植物王国</a></li>
+    </ul>
+  </div>
+
+  <h1 id="section-articles" style="margin-top: 30px;">推荐文章</h1>
+
+  <h2 style="margin-top: 20px; color: #2c3e50;">角苔</h2>
+  <div class="card">
+    <ul style="line-height: 2; font-size: 16px;">
+      <li><a href="https://mp.weixin.qq.com/s/LCGBLBa5d76RSGoUAOAMOQ" target="_blank" rel="noopener">小苔才露尖尖角 京华大地显峥嵘----北京地区首次发现角苔类植物</a></li>
+      <li><a href="https://www.jianshu.com/p/4a7ece61988f" target="_blank" rel="noopener">Nat. Plants | 角苔，既不是苔，也不是藓</a></li>
+      <li><a href="https://www.sohu.com/a/497036019_100294330" target="_blank" rel="noopener">【地球生物全系列——植物篇】植物界—角苔门</a></li>
+    </ul>
+  </div>
+
+  <h2 style="margin-top: 20px; color: #2c3e50;">系统科普</h2>
+  <div class="card">
+    <ul style="line-height: 2; font-size: 16px;">
+      <li><a href="https://mp.weixin.qq.com/s/v4oteBEqcXS1FaV8oebCyA" target="_blank" rel="noopener">無同植物星球 | 苔藓，苔or藓，傻傻分不清楚？</a></li>
+      <li><a href="https://mp.weixin.qq.com/s/tsOryv8z--HYedJp0GezjA" target="_blank" rel="noopener">公园里的那些绿色“小矮人”</a></li>
+      <li><a href="http://www.360doc.com/content/22/0422/16/137012_1027768579.shtml" target="_blank" rel="noopener">上岸后，就傻傻不再进化的苔藓</a></li>
+      <li><a href="https://mp.weixin.qq.com/s/uNi9zceiBjWs_6qItmpQzg" target="_blank" rel="noopener">知名识物 | 漫游苔藓小王国上</a></li>
+      <li><a href="https://mp.weixin.qq.com/s/3TIokduNSFfsVJ50OPWwPQ" target="_blank" rel="noopener">知名识物 | 漫游苔藓小王国下</a></li>
+      <li><a href="https://www.bjnews.com.cn/detail/171089735819788.html" target="_blank" rel="noopener">小身材、大智慧：苔藓的生存绝技</a></li>
+      <li><a href="https://mp.weixin.qq.com/s/75b6Esg2Di0C-1CRSeEfFg" target="_blank" rel="noopener">天之生人 草木诗心——张謇诗中的植物世界：苔藓</a></li>
+      <li><a href="https://mp.weixin.qq.com/s/m5dGD7tl1SxyNUnw3oOBCQ" target="_blank" rel="noopener">聊聊那些叶形独特的苔藓植物</a></li>
+      <li><a href="https://mp.weixin.qq.com/s/v4t9myzDNiR7VfZ_vMSNLg" target="_blank" rel="noopener">竞赛讲义｜植物学•苔藓植物PPT【专业】</a></li>
+    </ul>
+  </div>
+
+  <h2 style="margin-top: 20px; color: #2c3e50;">简单科普</h2>
+  <div class="card">
+    <ul style="line-height: 2; font-size: 16px;">
+      <li><a href="https://mp.weixin.qq.com/s/gUZ7VJj95lXuJcxKFwwQuA" target="_blank" rel="noopener">【林生·艺术团】小知识——苔藓的生殖</a></li>
+      <li><a href="https://baijiahao.baidu.com/s?id=1715392646729919046" target="_blank" rel="noopener">苔藓虫和苔藓</a></li>
+      <li><a href="http://www.360doc.com/content/18/0724/23/3014157_772989904.shtml" target="_blank" rel="noopener">苔藓植物|藓纲</a></li>
+      <li><a href="http://www.360doc.com/content/16/1229/10/26252107_618605135.shtml" target="_blank" rel="noopener">【小凌老师植物学】今日-微小而精妙的苔藓植物</a></li>
+      <li><a href="https://mp.weixin.qq.com/s/BtA-fkBsa13rwiWWg9bgpQ" target="_blank" rel="noopener">鞍子河 | 寂静山林—“不起眼”的苔藓</a></li>
+      <li><a href="https://www.jfdaily.com/sgh/detail?id=1453912" target="_blank" rel="noopener">生物多样性｜探秘微小而坚韧的生命奇迹</a></li>
+      <li><a href="https://m.thepaper.cn/baijiahao_12431721" target="_blank" rel="noopener">【科学普及】为什么这种植物长不高？</a></li>
+      <li><a href="https://mp.weixin.qq.com/s/Yq-wI8s3H1UVbLZ2njYX7A" target="_blank" rel="noopener">下雨了，又到了这种原始植物交配的季节</a></li>
+      <li><a href="https://www.douban.com/note/671370402/" target="_blank" rel="noopener">苔藓王国，要不要来了解一下？</a></li>
+      <li><a href="http://hsb.hspress.net/system/2024/0807/222284.shtml" target="_blank" rel="noopener">小身材大智慧的苔藓</a></li>
+      <li><a href="https://www.chinanews.com.cn/m/life/2018/07-05/8557369.shtml" target="_blank" rel="noopener">苔藓不起眼？其实它是陆地上最早的高等“居民”</a></li>
+      <li><a href="https://baijiahao.baidu.com/s?id=1605076218923517993&wfr=spider&for=pc" target="_blank" rel="noopener">苔花如米小，也学牡丹开？袁枚其实犯了个科学错误！</a></li>
+      <li><a href="https://m.thepaper.cn/baijiahao_6415515" target="_blank" rel="noopener">苔藓如何调节整个森林氮库？极端天气事件将致该氮库容量下降</a></li>
+      <li><a href="https://baijiahao.baidu.com/s?id=1735616210464359643&wfr=spider&for=pc" target="_blank" rel="noopener">「草木」走过春夏秋冬，我遇见的那些苔藓植物们</a></li>
+    </ul>
+  </div>
+      
+  <h2 style="margin-top: 20px; color: #2c3e50;">繁殖方式</h2>
+  <div class="card">
+    <ul style="line-height: 2; font-size: 16px;">
+      <li><a href="https://www.merit-times.com.tw/NewsPage.aspx?unid=619734" target="_blank" rel="noopener">【苔蘚大觀園】 苔蘚植物沒有花 怎麼繁殖呢？</a></li>
+    </ul>
+  </div>
+
+<h2 style="margin-top: 20px; color: #2c3e50;">教学课件</h2>
+  <div class="card">
+    <ul style="line-height: 2; font-size: 16px;">
+      <li><a href="https://max.book118.com/html/2021/0917/7125110113004005.shtm" target="_blank" rel="noopener">【PPT】9.2 常见苔藓植物的类群（苔纲、藓纲、角苔纲植物）</a></li>
+    </ul>
+  </div>
+     
+<h2 style="margin-top: 20px; color: #2c3e50;">文化故事</h2>
+  <div class="card">
+    <ul style="line-height: 2; font-size: 16px;">
+      <li><a href="https://www.sohu.com/a/481114875_121124399" target="_blank" rel="noopener">随处可见的青苔，在日本的寺庙活成了文物。</a></li>
+      <li><a href="https://www.kepu.net.cn/vmuseum/overview/201609/t20160919_458373.html" target="_blank" rel="noopener">[昆植所]亮绿圆尖藓孢子体发现过程小记</a></li>
+      <li><a href="https://baijiahao.baidu.com/s?id=1798297011204874524" target="_blank" rel="noopener">中国内地第一个苔藓园林，幽深、绝美！</a></li>
+      <li><a href="https://mp.weixin.qq.com/s/0dJZscbzwkX8AR0z5LjIyg" target="_blank" rel="noopener">国内植物园首个“苔藓园林”，就藏在深圳！</a></li>
+      <li><a href="https://www.thehour.cn/news/166862.html" target="_blank" rel="noopener">浙江自然博物馆苔藓展览</a></li>
+      <li><a href="https://mp.weixin.qq.com/s/jh5ac-CKupgyNAYVFbMjCg" target="_blank" rel="noopener">上海苔藓展览</a></li>
+      <li><a href="https://baijiahao.baidu.com/s?id=1822544743999312419&wfr=spider&for=pc" target="_blank" rel="noopener">苔藓名称探源：魏氏苔变柑皮苔的历程</a></li>
+    </ul>
+  </div>
+
+  <h2 style="margin-top: 20px; color: #2c3e50;">人物</h2>
+  <div class="card">
+    <ul style="line-height: 2; font-size: 16px;">
+      <li><a href="https://mp.weixin.qq.com/s/l3DvPVLQwrL4XiYvqTX3Ug" target="_blank" rel="noopener">陈邦杰 | 中国苔藓学之父 </a></li>
+      <li><a href="https://mp.weixin.qq.com/s/RvJKTXfA35gJE3ec01Eg3w" target="_blank" rel="noopener">苔藓植物学家 吴鹏程 </a></li>
+      <li><a href="https://mp.weixin.qq.com/s/G4VWbm31XrqfqyXC6UYkqQ" target="_blank" rel="noopener">曹同：苔藓教授的思忆杂记</a></li>
+      <li><a href="https://mp.weixin.qq.com/s/-9X4dBlzTdLauUVbac8NeA" target="_blank" rel="noopener">缅怀一生痴迷苔藓植物的李乾先生</a></li>
+      <li><a href="https://m.thepaper.cn/baijiahao_13592567" target="_blank" rel="noopener">张力：让“灭绝”苔藓死而复生 深圳专家获国际大奖</a></li>
+      <li><a href="https://m.thepaper.cn/baijiahao_8399987" target="_blank" rel="noopener">马文章：博士小哥痴迷野外，10年来不断进山找新物种</a></li>
+      <li><a href="https://zhuanlan.zhihu.com/p/163061231" target="_blank" rel="noopener">马文章：重庆博士荒野求生10年，与4亿年前植物作伴</a></li>
+      <li><a href="https://www.ctdsb.net/c1677_202210/1534703.html" target="_blank" rel="noopener">马文章：摸底迷你“森林”：苔藓怪咖采集400余号苔藓标本，期待发现“新面孔”</a></li>
+      <li><a href="https://www.803.com.cn/2021/07/06/99953365.html" target="_blank" rel="noopener">马文章：细微之处见真“章”</a></li>
+      <li><a href="https://mp.weixin.qq.com/s/niX2TKS_Db8RnXTRo5TP6w?scene=1&click_id=32" target="_blank" rel="noopener">王强：通过小小的苔藓，探索这个世界</a></li>
+    </ul>
+  </div>
+
+<h2 style="margin-top: 20px; color: #2c3e50;">论文</h2>
+  <div class="card">
+    <ul style="line-height: 2; font-size: 16px;">
+      <li><a href="https://journal.kib.ac.cn/CN/10.3724/SP.J.1143.2010.09221" target="_blank" rel="noopener">中国藓类植物无性繁殖体的初步观察</a></li>
+    </ul>
+  </div>
+      
+<h2 style="margin-top: 20px; color: #2c3e50;">图片</h2>
+  <div class="card">
+    <ul style="line-height: 2; font-size: 16px;">
+      <li><a href="https://mbd.baidu.com/newspage/data/dtlandingsuper?nid=dt_4629113111262154475" target="_blank" rel="noopener">户外拍摄1-苔藓自由？</a></li>
+      <li><a href="https://mp.weixin.qq.com/s/A782uZdEfzUieuEfeiEGwQ" target="_blank" rel="noopener">距离眼睛10cm才能看见的世界， 你见过吗？</a></li>
+      <li><a href="https://weibo.com/ttarticle/x/m/show/id/2309404583147189698837" target="_blank" rel="noopener">苔藓植物初体验之：墨脱公路沿线不同海拔的代表物种</a></li>
+      <li><a href="https://mp.weixin.qq.com/s/Dq5sW59LvJc7LNrDXG5_1w" target="_blank" rel="noopener">生物多样性科普 | 黄浦区发现9种上海苔藓新纪录</a></li>
+    </ul>
+  </div>
+      
+<h2 style="margin-top: 20px; color: #2c3e50;">分类图鉴</h2>
+  <div class="card">
+    <ul style="line-height: 2; font-size: 16px;">
+      <li><a href="https://mp.weixin.qq.com/s/FHfwwB5MTX9pzDYJjJsbvw" target="_blank" rel="noopener">我国常见苔藓植物的识别(一)-生物学通报</a></li>
+      <li><a href="http://www.360doc.com/content/17/0427/21/26439475_649197674.shtml" target="_blank" rel="noopener">苔藓简介</a></li>
+      <li><a href="http://www.360doc.com/content/19/0507/22/26252107_834204657.shtml" target="_blank" rel="noopener">解释一下：青青教大家怎么区分和选择市面常见的苔藓</a></li>
+      <li><a href="http://www.360doc.com/content/18/1125/12/40374990_797099517.shtml" target="_blank" rel="noopener">喜欢苔藓的朋友们，能分清这些苔藓品种就足够了</a></li>
+      <li><a href="http://www.360doc.com/content/17/0731/11/36131527_675534353.shtml" target="_blank" rel="noopener">几种常见的苔藓</a></li>
+      <li><a href="http://www.360doc.com/content/16/1030/08/33185388_602465072.shtml" target="_blank" rel="noopener">苔藓植物品种图鉴</a></li>
+      <li><a href="http://www.360doc.com/content/16/0413/15/31129808_550304478.shtml" target="_blank" rel="noopener">超全苔藓图鉴【这些苔藓你都认识吗？】</a></li>
+      <li><a href="http://www.360doc.com/content/16/0715/11/14228198_575666330.shtml" target="_blank" rel="noopener">我没有养过的40种莫斯</a></li>
+      <li><a href="https://www.bilibili.com/opus/871261011110264882" target="_blank" rel="noopener">七里苔藓调查初记-藓类</a></li>
+      <li><a href="https://www.bilibili.com/opus/871261011110264882" target="_blank" rel="noopener">七里苔藓调查初记-苔类</a></li>
+      <li><a href="https://mp.weixin.qq.com/s/4lAyMH2wspiOpYhE11hV-A" target="_blank" rel="noopener">华中屋脊，探“藓”秘境 --记神农架国家公园苔藓植物多样性调查</a></li>
+      <li><a href="https://www.bilibili.com/read/cv4905291/" target="_blank" rel="noopener">让这片秘境成为大熊猫乐土，这些看起来微不足道的苔藓也有功劳！</a></li>
+      <li><a href="https://baijiahao.baidu.com/s?id=1599885945866945074" target="_blank" rel="noopener">弯下腰，欣赏生命力顽强的苔藓之美</a></li>
+      <li><a href="https://m.sohu.com/a/131475619_677053" target="_blank" rel="noopener">雨林缸里美爆了的苔藓，你认识几种？？</a></li>
+      <li><a href="http://www.mulinzi.com/zrzy/zwzy/202205/t20220506_1286405.shtml" target="_blank" rel="noopener">苔藓种类何其多</a></li>
+      <li><a href="https://blog.sina.com.cn/s/blog_67ddfd470102z090.html" target="_blank" rel="noopener">北京苔藓植物</a></li>
+      <li><a href="http://www.zsbeike.com/zy-1610-1" target="_blank" rel="noopener">广东苔藓志</a></li>
+      <li><a href="https://weibo.com/ttarticle/p/show?id=2309404835253616509600" target="_blank" rel="noopener">【苔藓植物全系列】(1)</a></li>
+      <li><a href="https://weibo.com/ttarticle/p/show?id=2309404835252727054547" target="_blank" rel="noopener">【苔藓植物全系列】(2)</a></li>
+      <li><a href="https://weibo.com/ttarticle/p/show?id=2309404834890524000291" target="_blank" rel="noopener">【苔藓植物全系列】(3)</a></li>
+      <li><a href="https://weibo.com/ttarticle/p/show?id=2309404834888435237031" target="_blank" rel="noopener">【苔藓植物全系列】(4)</a></li>
+      <li><a href="https://weibo.com/ttarticle/p/show?id=2309404834551859118523" target="_blank" rel="noopener">【苔藓植物全系列】(5)</a></li>
+      <li><a href="https://weibo.com/ttarticle/p/show?id=2309404834551037034505" target="_blank" rel="noopener">【苔藓植物全系列】(6)</a></li>
+      <li><a href="https://weibo.com/ttarticle/p/show?id=2309404834192734421475" target="_blank" rel="noopener">【苔藓植物全系列】(7)</a></li>
+      <li><a href="https://weibo.com/ttarticle/p/show?id=2309404834192033972266" target="_blank" rel="noopener">【苔藓植物全系列】(8)</a></li>
+      <li><a href="https://weibo.com/ttarticle/p/show?id=2309404833823824413288" target="_blank" rel="noopener">【苔藓植物全系列】(9)</a></li>
+      <li><a href="https://weibo.com/ttarticle/p/show?id=2309404833467648311411" target="_blank" rel="noopener">【苔藓植物全系列】(10)</a></li>
+      <li><a href="https://weibo.com/ttarticle/p/show?id=2309404833466733953305" target="_blank" rel="noopener">【苔藓植物全系列】(11)</a></li>
+      <li><a href="https://weibo.com/ttarticle/p/show?id=2309404833465723125856" target="_blank" rel="noopener">【苔藓植物全系列】(12)</a></li>
+      <li><a href="https://weibo.com/ttarticle/p/show?id=2309404833108720746793" target="_blank" rel="noopener">【苔藓植物全系列】(13)</a></li>
+      <li><a href="http://www.360doc.com/content/21/1205/20/64995474_1007290322.shtml" target="_blank" rel="noopener">一个小小芽胞,成为识别地钱属的新特征</a></li>
+    </ul>
+  </div>
+
+<h2 style="margin-top: 20px; color: #2c3e50;">苔藓养殖</h2>
+  <div class="card">
+    <ul style="line-height: 2; font-size: 16px;">
+      <li><a href="https://daintsuoh.medium.com/%E8%8B%94%E8%98%9A%E5%AD%B8%E5%A0%82-%E9%A4%8A%E8%8B%94%E5%9F%BA%E7%A4%8E%E7%AF%872-576ff5d3b4e3" target="_blank" rel="noopener">苔藓学堂-养苔基础篇（台湾）(2)</a></li>
+      <li><a href="https://daintsuoh.medium.com/%E8%8B%94%E8%98%9A%E5%AD%B8%E5%A0%82-%E9%A4%8A%E8%8B%94%E5%9F%BA%E7%A4%8E%E7%AF%87-part-3-%E9%A4%8A%E8%8B%94%E8%BF%B7%E6%80%9D%E5%8F%8A%E5%95%8F%E9%A1%8C-e37d1685b96a" target="_blank" rel="noopener">苔藓学堂-养苔基础篇（台湾）(3)</a></li>
+      <li><a href="http://www.360doc.com/content/16/0413/15/31129808_550303841.shtml" target="_blank" rel="noopener">苔藓详解第一集：大灰藓</a></li>
+      <li><a href="http://www.360doc.com/content/21/0908/08/21707767_994595434.shtml" target="_blank" rel="noopener">对萌新最友好的苔藓繁殖教程</a></li>
+      <li><a href="http://www.360doc.com/content/18/1123/13/40374990_796712968.shtml" target="_blank" rel="noopener">苔藓的孢子繁殖法及养护技巧</a></li>
+    </ul>
+  </div>
+      
+<h2 style="margin-top: 20px; color: #2c3e50;">其他</h2>
+  <div class="card">
+    <ul style="line-height: 2; font-size: 16px;">
+      <li><a href="https://www.bilibili.com/video/BV1e7411L7c6" target="_blank" rel="noopener">苔藓标本制作方法</a></li>
+      <li><a href="https://baijiahao.baidu.com/s?id=1686557991421182794&wfr=spider&for=pc" target="_blank" rel="noopener">「四川日报」密林深处 一场惊心动魄的发现之旅</a></li>
+      <li><a href="https://life.ecnu.edu.cn/f4/a5/c18135a193701/page.htm" target="_blank" rel="noopener">我校泥炭藓原丝体稳定培养获得突破</a></li>
+      <li><a href="https://www.renrendoc.com/paper/93060081.html" target="_blank" rel="noopener">苔藓植物门PPT</a></li>
+      <li><a href="https://www.sohu.com/a/258941921_778915" target="_blank" rel="noopener">解密苔藓植物为什么都是小个子？</a></li>
+      <li><a href="https://k.sina.com.cn/article_6439930736_17fd98b70001004eyb.html" target="_blank" rel="noopener">左勤‖在幽暗中凝聚光明——会“发光”的苔藓</a></li>
+      <li><a href="https://www.zjstm.org/edu/science-magazine-detail.htm?magazineId=4163" target="_blank" rel="noopener">2023年第三期 绽放在春日的“苔花”</a></li>
+      <li><a href="https://mp.weixin.qq.com/s/pxxUBbE_aBLbWTLvuXI4OQ" target="_blank" rel="noopener">LSEB动态 | 第一个高质量的角苔参考基因组终于面世了</a></li>
+      <li><a href="http://www.360doc.com/content/23/0207/11/64995474_1066548822.shtml" target="_blank" rel="noopener">掌握要领，轻松识别常见藓类</a></li>
+    </ul>
+  </div>
+
+  <h1 id="section-websites" style="margin-top: 30px;">学习网站</h1>
+  <div class="card">
+    <p>以下是一些常用的植物学及苔藓学习网站（点击链接在新页面打开）：</p>
+    <ul style="line-height: 2; font-size: 16px;">
+      <li><a href="https://weibo.com/ttarticle/p/show?id=2309404749413930369344" target="_blank" rel="noopener">植物学好帮手·植物类网站集成</a></li>
+      <li><a href="https://zgsdzw.com/open/group/taixian" target="_blank" rel="noopener">湿地植物数据库</a></li>
+      <li><a href="https://ppbc.iplant.cn/" target="_blank" rel="noopener">PPBC植物照片数据库</a></li>
+      <li><a href="https://www.zhiwutong.com/" target="_blank" rel="noopener">植物通</a></li>
+      <li><a href="http://www.npadata.cn/" target="_blank" rel="noopener">物种库</a></li>
+      <li><a href="https://species.sciencereading.cn/biology/v/biologicalIndex/122.html" target="_blank" rel="noopener">生物志库（付费）</a></li>
+      <li><a href="https://duocet.ibiodiversity.net/index.php" target="_blank" rel="noopener">多识植物百科</a></li>
+      <li><a href="https://www.cfh.ac.cn/spdb/TaxonTree.aspx?id=125975#" target="_blank" rel="noopener">中国自然标本馆</a></li>
+      <li><a href="http://www.biopix.eu/" target="_blank" rel="noopener">http://www.biopix.eu/ 一个专注于欧洲地区（尤其是北欧）的生物图像数据库</a></li>
+      <li><a href="https://www.gbif.org" target="_blank" rel="noopener">www.gbif.org 全球生物多样性信息网络</a></li>
+      <li><a href="https://www.britishbryologicalsociety.org.uk/" target="_blank" rel="noopener">https://www.britishbryologicalsociety.org.uk/ 英国苔藓学会的官方网站</a></li>
+      <li><a href="https://www.moose-deutschland.de/" target="_blank" rel="noopener">https://www.moose-deutschland.de/ 专注于德国苔藓植物的网站</a></li>
+      <li><a href="https://floranorthamerica.org/" target="_blank" rel="noopener">https://floranorthamerica.org/ 北美植物志项目</a></li>
+      <li><a href="https://www.anbg.gov.au/bryophyte/" target="_blank" rel="noopener">https://www.anbg.gov.au/bryophyte/ 澳大利亚国家植物园维护的苔藓植物网站</a></li>
+      <li><a href="https://www.mobot.org/mobot/tropicos/most/" target="_blank" rel="noopener">https://www.mobot.org/mobot/tropicos/most/ 密苏里植物园TROPICOS数据库的苔藓项目</a></li>
+      <li><a href="https://www.naturespot.org/gallery/acrocarps" target="_blank" rel="noopener">https://www.naturespot.org/gallery/acrocarps 记录英国莱斯特郡和拉特兰郡野生动植物的网站</a></li>
+      <li><a href="https://fungi.sakura.ne.jp/moss_memo/moss_070912.htm" target="_blank" rel="noopener">https://fungi.sakura.ne.jp/moss_memo/moss_070912.htm 一个日本的个人博客或网页，内容是关于苔藓的记录和备忘录</a></li>
+      <li><a href="https://bryophytessb.com/" target="_blank" rel="noopener">https://bryophytessb.com/ 一个专门展示巴西圣埃斯皮里图州苔藓植物的网站</a></li>
+      <li><a href="https://www.tropicos.org/" target="_blank" rel="noopener">https://www.tropicos.org/ 密苏里植物园的TROPICOS数据库主站</a></li>
+      <li><a href="https://www.worldfloraonline.org/" target="_blank" rel="noopener">https://www.worldfloraonline.org/ 世界植物在线</a></li>
+      <li><a href="https://soyokaze2jp.blogspot.com/" target="_blank" rel="noopener">https://soyokaze2jp.blogspot.com/ 一个以日语撰写的个人博客</a></li>
+      <li><a href="https://data.kew.org/" target="_blank" rel="noopener">https://data.kew.org/ 英国皇家植物园邱园的数据门户</a></li>
+      <li><a href="https://northernforestatlas.org/category/digital-atlases-2/" target="_blank" rel="noopener">有大量精美图集</a></li>
+	    <li><a href="https://ohiomosslichen.org/" target="_blank" rel="noopener">美国俄亥俄州苔藓与地衣协会官方网站</a></li>
+    </ul>
+  </div>
+
+  <h1 id="section-accounts" style="margin-top: 30px;">推荐账号</h1>
+  <div class="card">
+    <p>以下是一些优质的苔藓相关公众号：</p>
+    
+    <div class="account-list">
+      <!-- 苔藓先生 -->
+      <div class="account-item" style="border-bottom: 1px solid #eee; padding: 15px 0; display: flex; flex-wrap: wrap; gap: 20px;">
+        <div class="account-info" style="flex: 1; min-width: 250px;">
+          <h3 style="margin: 0 0 10px 0; color: #2c3e50;">苔藓先生</h3>
+          <p style="margin: 5px 0;"><strong>文章数量：</strong>500+</p>
+          <p style="margin: 5px 0;"><strong>运营人：</strong>杨帆（在读博士）</p>
+          <p style="margin: 5px 0;"><strong>介绍：</strong>助力苔友玩好苔藓，助力苔藓产业发展</p>
+          <p style="margin: 5px 0;"><strong>推荐理由：</strong>专注于苔藓微景观，有非常多亲自繁殖苔藓的心得，以及很多的苔友造景投稿</p>
+        </div>
+        <div class="account-qr" style="width: 150px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; min-height: 150px;">
+          <img src="{{ url_for('img_file', filename='accounts/1.png') }}" alt="苔藓先生二维码" style="max-width: 100%; max-height: 100%;">
+        </div>
+      </div>
+
+      <!-- 苔藓之恋 -->
+      <div class="account-item" style="border-bottom: 1px solid #eee; padding: 15px 0; display: flex; flex-wrap: wrap; gap: 20px;">
+        <div class="account-info" style="flex: 1; min-width: 250px;">
+          <h3 style="margin: 0 0 10px 0; color: #2c3e50;">苔藓之恋</h3>
+          <p style="margin: 5px 0;"><strong>文章数量：</strong>1200+</p>
+          <p style="margin: 5px 0;"><strong>运营人：</strong>韩国营</p>
+          <p style="margin: 5px 0;"><strong>介绍：</strong>玩苔藓之恋，品时光之闲</p>
+          <p style="margin: 5px 0;"><strong>推荐理由：</strong>公众号开设超过十年，介绍了非常多的苔藓研究、论文等成果，亦有许多科普教学文章</p>
+        </div>
+        <div class="account-qr" style="width: 150px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; min-height: 150px;">
+          <img src="{{ url_for('img_file', filename='accounts/2.png') }}" alt="苔藓之恋二维码" style="max-width: 100%; max-height: 100%;">
+        </div>
+      </div>
+
+      <!-- 健康快乐生活之路 -->
+      <div class="account-item" style="border-bottom: 1px solid #eee; padding: 15px 0; display: flex; flex-wrap: wrap; gap: 20px;">
+        <div class="account-info" style="flex: 1; min-width: 250px;">
+          <h3 style="margin: 0 0 10px 0; color: #2c3e50;">健康快乐生活之路</h3>
+          <p style="margin: 5px 0;"><strong>文章数量：</strong>2000+</p>
+          <p style="margin: 5px 0;"><strong>运营人：</strong>刘胜祥老师（《湖北苔藓植物志》主编）</p>
+          <p style="margin: 5px 0;"><strong>介绍：</strong></p>
+          <p style="margin: 5px 0;"><strong>推荐理由：</strong>2024年3月之前有很多苔藓相关内容，后来转为生物、诗歌、科学、历史等内容</p>
+        </div>
+        <div class="account-qr" style="width: 150px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; min-height: 150px;">
+          <img src="{{ url_for('img_file', filename='accounts/3.png') }}" alt="健康快乐生活之路二维码" style="max-width: 100%; max-height: 100%;">
+        </div>
+      </div>
+
+      <!-- 苔静心之馨 -->
+      <div class="account-item" style="border-bottom: 1px solid #eee; padding: 15px 0; display: flex; flex-wrap: wrap; gap: 20px;">
+        <div class="account-info" style="flex: 1; min-width: 250px;">
+          <h3 style="margin: 0 0 10px 0; color: #2c3e50;">苔静心之馨</h3>
+          <p style="margin: 5px 0;"><strong>文章数量：</strong>45</p>
+          <p style="margin: 5px 0;"><strong>运营人：</strong>未知</p>
+          <p style="margin: 5px 0;"><strong>介绍：</strong>初之本色万物之馨 苔藓图鉴 鉴别 养护 繁殖 水陆缸 微景观制作鉴赏</p>
+          <p style="margin: 5px 0;"><strong>推荐理由：</strong>介绍了45个科的苔藓，图文并茂。2018年8月停止更新。</p>
+        </div>
+        <div class="account-qr" style="width: 150px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; min-height: 150px;">
+          <img src="{{ url_for('img_file', filename='accounts/4.png') }}" alt="苔静心之馨二维码" style="max-width: 100%; max-height: 100%;">
+        </div>
+      </div>
+
+      <!-- 苔园拾花 -->
+      <div class="account-item" style="border-bottom: 1px solid #eee; padding: 15px 0; display: flex; flex-wrap: wrap; gap: 20px;">
+        <div class="account-info" style="flex: 1; min-width: 250px;">
+          <h3 style="margin: 0 0 10px 0; color: #2c3e50;">苔园拾花</h3>
+          <p style="margin: 5px 0;"><strong>文章数量：</strong>2</p>
+          <p style="margin: 5px 0;"><strong>运营人：</strong>王钧杰博士</p>
+          <p style="margin: 5px 0;"><strong>介绍：</strong>认识和观察自己身边的草木和苔藓</p>
+          <p style="margin: 5px 0;"><strong>推荐理由：</strong>有两篇浙江苔藓小志</p>
+        </div>
+        <div class="account-qr" style="width: 150px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; min-height: 150px;">
+          <img src="{{ url_for('img_file', filename='accounts/5.png') }}" alt="苔园拾花二维码" style="max-width: 100%; max-height: 100%;">
+        </div>
+      </div>
+
+      <!-- 富贵藓中求 -->
+      <div class="account-item" style="border-bottom: 1px solid #eee; padding: 15px 0; display: flex; flex-wrap: wrap; gap: 20px;">
+        <div class="account-info" style="flex: 1; min-width: 250px;">
+          <h3 style="margin: 0 0 10px 0; color: #2c3e50;">富贵藓中求</h3>
+          <p style="margin: 5px 0;"><strong>文章数量：</strong>22</p>
+          <p style="margin: 5px 0;"><strong>运营人：</strong></p>
+          <p style="margin: 5px 0;"><strong>介绍：</strong>分享苔藓植物相关知识</p>
+          <p style="margin: 5px 0;"><strong>推荐理由：</strong>介绍了杭州的很多常见苔藓植物</p>
+        </div>
+        <div class="account-qr" style="width: 150px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; min-height: 150px;">
+          <img src="{{ url_for('img_file', filename='accounts/6.png') }}" alt="富贵藓中求二维码" style="max-width: 100%; max-height: 100%;">
+        </div>
+      </div>
+
+      <!-- 自然青年 -->
+      <div class="account-item" style="border-bottom: 1px solid #eee; padding: 15px 0; display: flex; flex-wrap: wrap; gap: 20px;">
+        <div class="account-info" style="flex: 1; min-width: 250px;">
+          <h3 style="margin: 0 0 10px 0; color: #2c3e50;">自然青年</h3>
+          <p style="margin: 5px 0;"><strong>文章数量：</strong>129</p>
+          <p style="margin: 5px 0;"><strong>运营人：</strong>李俊龙（Future）</p>
+          <p style="margin: 5px 0;"><strong>介绍：</strong>一群热爱自然的青年</p>
+          <p style="margin: 5px 0;"><strong>推荐理由：</strong>有非常多详细的苔藓图鉴</p>
+        </div>
+        <div class="account-qr" style="width: 150px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; min-height: 150px;">
+          <img src="{{ url_for('img_file', filename='accounts/7.png') }}" alt="自然青年二维码" style="max-width: 100%; max-height: 100%;">
+        </div>
+      </div>
+
+      <!-- 卓尼土司的苔藓世界 -->
+      <div class="account-item" style="padding: 15px 0; display: flex; flex-wrap: wrap; gap: 20px;">
+        <div class="account-info" style="flex: 1; min-width: 250px;">
+          <h3 style="margin: 0 0 10px 0; color: #2c3e50;">卓尼土司的苔藓世界</h3>
+          <p style="margin: 5px 0;"><strong>文章数量：</strong>9</p>
+          <p style="margin: 5px 0;"><strong>运营人：</strong>卓尼土司</p>
+          <p style="margin: 5px 0;"><strong>介绍：</strong>苔藓识别和微摄影</p>
+          <p style="margin: 5px 0;"><strong>推荐理由：</strong>大量苔藓微距摄影照片</p>
+        </div>
+        <div class="account-qr" style="width: 150px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; min-height: 150px;">
+          <img src="{{ url_for('img_file', filename='accounts/8.png') }}" alt="卓尼土司的苔藓世界二维码" style="max-width: 100%; max-height: 100%;">
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 30px; padding-top: 20px; border-top: 2px dashed #eee;">
+      <h3 style="margin-bottom: 15px; color: #2c3e50;">其他平台推荐</h3>
+      <p style="margin: 10px 0; font-size: 16px;"><strong>小红书：</strong><a href="https://www.xiaohongshu.com/user/profile/613636150000000002025d2d" target="_blank" rel="noopener">东莱郎</a>、<a href="https://www.xiaohongshu.com/user/profile/63cbf4620000000026011822" target="_blank" rel="noopener">巴桑禾斗</a>、<a href="https://www.xiaohongshu.com/user/profile/62adfcb9000000001902933a" target="_blank" rel="noopener">Future</a></p>
+      <p style="margin: 10px 0; font-size: 16px;"><strong>新浪微博：</strong><a href="https://weibo.com/7298912278" target="_blank" rel="noopener">@好戏连苔</a></p>
+    </div>
+  </div>
+{% endblock %}

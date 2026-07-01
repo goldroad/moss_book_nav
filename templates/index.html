@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row" style="margin-bottom:10px;">
+  <div>
+    <a class="btn" href="{{ url_for('import_pages') }}">导入书籍页码表格</a>
+  </div>
+  <div>
+    <form method="post" action="{{ url_for('restart') }}" onsubmit="return confirm('确认停止程序？这将终止当前服务。')">
+      <button class="btn" type="submit">停止程序（停止后需手动启动）</button>
+    </form>
+  </div>
+</div>
+<h2>苔藓名称查询（按回车查询）</h2>
+<form method="get" action="{{ url_for('index') }}#search-results">
+  <div class="muted" style="margin-bottom:6px;">提示：输入苔藓名称中的任意内容进行模糊查询（支持中文名和拉丁名）。</div>
+  <div class="row" style="display:flex; align-items:center;">
+    <input class="input" type="text" name="q" value="{{ keyword }}" placeholder="请输入一个字或一个词" autofocus style="background-color: #e6ffed; width:25em; margin-right:10px;">
+    <button class="btn primary" type="submit">查询</button>
+  </div>
+  <div style="margin-top:8px;">
+    <div class="muted" style="margin-bottom:6px;">按书籍筛选（默认全部勾选）：</div>
+    <div class="row" style="margin-bottom:6px;">
+      <div><button class="btn" type="button" onclick="selectPdfBooks()">只查PDF</button></div>
+      <div><button class="btn" type="button" onclick="selectAllBooks()">全选</button></div>
+      <div><button class="btn" type="button" onclick="invertBooks()">反选</button></div>
+      <div><button class="btn" type="button" onclick="clearBooks()">清除</button></div>
+    </div>
+    <div class="row" style="flex-wrap: wrap; gap:8px;">
+      {% for b in books %}
+        <label style="display:flex; align-items:center; gap:6px; border:1px solid #d0d7de; border-radius:6px; padding:6px 8px;">
+          <input type="checkbox" name="books" value="{{ b.id }}" {% if b.id|string in selected_ids %}checked{% endif %}>
+          {% if b.cover_image %}
+            <img src="{{ url_for('img_file', filename=b.cover_image) }}" alt="{{ b.book_name }} 封面" style="width:40px; height:40px; object-fit:cover; border:1px solid #d0d7de; border-radius:4px;">
+          {% endif %}
+          <span>{{ b.book_name }}（{{ b.data_count }}条）</span>
+          {% if b.has_pdf %}
+            <span style="display:inline-block; padding:0 6px; font-size:12px; line-height:18px; border-radius:4px; background:#ffebe9; color:#6a1b1a; border:1px solid #ffd1cf;">PDF</span>
+          {% endif %}
+        </label>
+      {% endfor %}
+    </div>
+    <script>
+      function getBookCheckboxes() { return document.querySelectorAll('input[name="books"]'); }
+      function selectAllBooks() { getBookCheckboxes().forEach(function(cb){ cb.checked = true; }); }
+      function invertBooks() { getBookCheckboxes().forEach(function(cb){ cb.checked = !cb.checked; }); }
+      function clearBooks() { getBookCheckboxes().forEach(function(cb){ cb.checked = false; }); }
+      function selectPdfBooks() {
+        // 清除所有选中状态
+        getBookCheckboxes().forEach(function(cb){ cb.checked = false; });
+        // 选中所有有PDF标记的书籍
+        document.querySelectorAll('input[name="books"]').forEach(function(cb) {
+          const parent = cb.closest('label');
+          if (parent) {
+            // 查找所有span元素并检查是否包含PDF文本
+            const spans = parent.querySelectorAll('span');
+            for (let i = 0; i < spans.length; i++) {
+              if (spans[i].textContent.includes("PDF")) {
+                cb.checked = true;
+                break;
+              }
+            }
+          }
+        });
+      }
+    </script>
+  </div>
+</form>
+
+<div id="search-results"></div>
+{% if keyword %}
+  {% if groups %}
+    <div class="muted" style="margin: 10px 0;">搜索关键词：<strong>{{ keyword }}</strong>，在 <strong>{{ groups|length }}</strong> 本书籍中匹配到，共 <strong>{{ moss_total }}</strong> 条记录：</div>
+    {% for g in groups %}
+      <div class="card">
+        <div style="display:flex; align-items:center; gap:6px;"><strong>[书籍]</strong> {% if g.cover_image %}<img src="{{ url_for('img_file', filename=g.cover_image) }}" alt="{{ g.book_name }} 封面" style="width:25px; height:25px; object-fit:cover; border:1px solid #d0d7de; border-radius:4px;">{% endif %} <span>{{ g.book_name }}</span>{% if g.has_pdf %} <span style="display:inline-block; padding:0 6px; font-size:12px; line-height:18px; border-radius:4px; background:#ffebe9; color:#6a1b1a; border:1px solid #ffd1cf;">PDF</span>{% endif %} ｜ <span class="muted">匹配苔藓：{{ g.count }}</span></div>
+        <div class="locations" style="margin-top:6px;">
+          {% for m in g.mosses %}
+            <div>· {{ m.name }} ｜ 页码：
+              {% for item in m.page_items %}
+                <code>{{ item.page }}</code>{% if item.pdf %}（PDF：<code>{{ item.pdf }}</code>）{% endif %}{% if not loop.last %}、{% endif %}
+              {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="flash error">未找到匹配结果。</div>
+  {% endif %}
+{% endif %}
+
+<!-- backToTop moved to base.html -->
+{% endblock %}

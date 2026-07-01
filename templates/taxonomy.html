@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+{% block body_class %}page-taxonomy{% endblock %}
+{% block content %}
+<h2>苔藓名称数据库（数据来源：http://sp2000.org.cn/），更新日期：2026年5月</h2>
+<form method="get" action="{{ url_for('taxonomy') }}">
+  <div class="row" style="margin-bottom:10px;">
+    <div style="margin-right:10px;">
+      <label>门（中文）：
+        <select class="input" name="gate" onchange="this.form.submit()" style="width:auto;">
+          <option value="">（全部）</option>
+          {% for v in gates %}
+            <option value="{{ v }}" {% if v == gate %}selected{% endif %}>{{ v }}</option>
+          {% endfor %}
+        </select>
+      </label>
+    </div>
+    <div style="margin-right:10px;">
+      <label>纲（中文）：
+        <select class="input" name="clazz" onchange="this.form.submit()" style="width:auto;">
+          <option value="">（全部）</option>
+          {% for v in classes %}
+            <option value="{{ v }}" {% if v == clazz %}selected{% endif %}>{{ v }}</option>
+          {% endfor %}
+        </select>
+      </label>
+    </div>
+    <div style="margin-right:10px;">
+      <label>目（中文）：
+        <select class="input" name="order" onchange="this.form.submit()" style="width:auto;">
+          <option value="">（全部）</option>
+          {% for v in orders %}
+            <option value="{{ v }}" {% if v == order %}selected{% endif %}>{{ v }}</option>
+          {% endfor %}
+        </select>
+      </label>
+    </div>
+    <div style="margin-right:10px;">
+      <label>科（中文）：
+        <select class="input" name="family" onchange="this.form.submit()" style="width:auto;">
+          <option value="">（全部）</option>
+          {% for v in families %}
+            <option value="{{ v }}" {% if v == family %}selected{% endif %}>{{ v }}</option>
+          {% endfor %}
+        </select>
+      </label>
+    </div>
+    <div>
+      <label>属（中文）：
+        <select class="input" name="genus" onchange="this.form.submit()" style="width:auto;">
+          <option value="">（全部）</option>
+          {% for v in genera %}
+            <option value="{{ v }}" {% if v == genus %}selected{% endif %}>{{ v }}</option>
+          {% endfor %}
+        </select>
+      </label>
+    </div>
+  </div>
+
+  <div class="row" style="margin-bottom:10px; align-items:center;">
+    <div>
+      <input class="input" type="text" name="q" placeholder="在任意字段中模糊查询（支持中文名和拉丁名）" value="{{ q }}" autofocus style="background-color: #e6ffed; width:25em;">
+    </div>
+    <div style="margin-left:10px;">
+      <button class="btn primary" type="submit">查询</button>
+    </div>
+    <div style="margin-left:10px;">
+      <a class="btn" href="{{ url_for('taxonomy') }}">清空</a>
+    </div>
+    <div style="margin-left:10px;">
+      <label>每页数量：</label>
+    </div>
+    <div style="margin-left:10px;">
+      <label>
+        <select class="input" name="per_page" onchange="this.form.submit()">
+          {% for size in allowed_page_sizes %}
+            <option value="{{ size }}" {% if size == per_page %}selected{% endif %}>{{ size }}</option>
+          {% endfor %}
+        </select>
+      </label>
+    </div>
+  </div>
+</form>
+
+{% if total_count %}
+  <div class="row" style="margin-bottom:10px;">
+    <div class="col">
+      <span class="muted">总数：{{ total_count }} · 第 {{ page }} / {{ total_pages }} 页</span>
+    </div>
+    <div>
+      {% if page > 1 %}
+        <a class="btn" href="{{ url_for('taxonomy', gate=gate, clazz=clazz, order=order, family=family, genus=genus, q=q, per_page=per_page, page=page-1) }}">上一页</a>
+      {% else %}
+        <span class="btn" style="opacity:.5; cursor:default;">上一页</span>
+      {% endif %}
+      {% for p in pagination_pages %}
+        {% if p %}
+          {% if p == page %}
+            <span class="btn primary" style="cursor:default;">{{ p }}</span>
+          {% else %}
+            <a class="btn" href="{{ url_for('taxonomy', gate=gate, clazz=clazz, order=order, family=family, genus=genus, q=q, per_page=per_page, page=p) }}">{{ p }}</a>
+          {% endif %}
+        {% else %}
+          <span class="btn" style="opacity:.6; cursor:default;">...</span>
+        {% endif %}
+      {% endfor %}
+      {% if page < total_pages %}
+        <a class="btn" href="{{ url_for('taxonomy', gate=gate, clazz=clazz, order=order, family=family, genus=genus, q=q, per_page=per_page, page=page+1) }}">下一页</a>
+      {% else %}
+        <span class="btn" style="opacity:.5; cursor:default;">下一页</span>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
+
+{% if rows %}
+  <div class="card" style="overflow:auto;">
+    <table style="width:100%; border-collapse: collapse; font-size: 14px;">
+      <thead>
+        <tr>
+          {% for col in columns %}
+            <th style="text-align:left; border-bottom: 1px solid #d0d7de; padding: 6px 8px;">{{ col }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in rows %}
+          <tr>
+            {% for col in columns %}
+              <td style="border-bottom: 1px solid #f0f3f6; padding: 6px 8px;">{{ r[col] }}</td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <div class="flash error">未找到匹配数据。</div>
+{% endif %}
+
+<!-- bottom pagination -->
+{% if total_count %}
+  <div class="row" style="margin-top:10px;">
+    <div class="col">
+      <span class="muted">第 {{ page }} / {{ total_pages }} 页</span>
+    </div>
+    <div>
+      {% if page > 1 %}
+        <a class="btn" href="{{ url_for('taxonomy', gate=gate, clazz=clazz, order=order, family=family, genus=genus, q=q, per_page=per_page, page=page-1) }}">上一页</a>
+      {% else %}
+        <span class="btn" style="opacity:.5; cursor:default;">上一页</span>
+      {% endif %}
+      {% for p in pagination_pages %}
+        {% if p %}
+          {% if p == page %}
+            <span class="btn primary" style="cursor:default;">{{ p }}</span>
+          {% else %}
+            <a class="btn" href="{{ url_for('taxonomy', gate=gate, clazz=clazz, order=order, family=family, genus=genus, q=q, per_page=per_page, page=p) }}">{{ p }}</a>
+          {% endif %}
+        {% else %}
+          <span class="btn" style="opacity:.6; cursor:default;">...</span>
+        {% endif %}
+      {% endfor %}
+      {% if page < total_pages %}
+        <a class="btn" href="{{ url_for('taxonomy', gate=gate, clazz=clazz, order=order, family=family, genus=genus, q=q, per_page=per_page, page=page+1) }}">下一页</a>
+      {% else %}
+        <span class="btn" style="opacity:.5; cursor:default;">下一页</span>
+      {% endif %}
+    </div>
+    <!-- backToTop script moved to base.html
+    <button id="backToTop" class="btn" type="button" title="回到顶部" aria-label="回到顶部" style="position:fixed; right:16px; bottom:16px; z-index:999; display:none; border-radius:50%; width:44px; height:44px; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(0,0,0,.15);"></button>
+    <script>
+    (function(){
+      var btn = document.getElementById('backToTop');
+      if(!btn) return;
+      function toggle(){
+        var y = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        btn.style.display = y > 0 ? 'inline-flex' : 'none';
+      }
+      window.addEventListener('scroll', toggle);
+      window.addEventListener('load', toggle);
+      btn.addEventListener('click', function(){
+        try {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } catch (e) {
+          window.scrollTo(0, 0);
+        }
+      });
+    })();
+    </script>
+    -->
+  </div>
+{% endif %}
+<div class="muted" style="margin-top:12px;">
+  · 级联：先选“门”，再选“纲”，以此类推。<br>
+  · 模糊查询匹配所有 12 列（中/拉丁名）。<br>
+  · 支持分页：默认每页 100，可改为 200/500/1000。
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>数据导入（数据在【pages.xlsx】中）</h2>
+<form method="post" enctype="multipart/form-data">
+  <div style="margin-bottom:10px;">
+    <label>选择 xlsx 文件：<input type="file" name="xlsx_file" accept=".xlsx" required></label>
+  </div>
+  <div class="muted" style="margin-bottom:10px;">
+    系统将从数据库 <code>books</code> 表读取短名→书名映射（无需在表单或配置文件填写书籍名称）。
+  </div>
+  <div style="margin-bottom:10px;">
+    <label><input type="checkbox" name="clear" checked> 导入前清空历史数据（不影响 <code>books</code> 表；不勾选为增量导入）</label>
+  </div>
+  <button class="btn primary" type="submit">开始导入</button>
+</form>
+
+<div class="muted" style="margin-top:14px;">
+  · 每个 sheet 的名称作为 <code>short_name</code> 使用；完整书名从数据库 <code>books</code> 表读取。
+  · 一行一条数据
+  · 第1列为苔藓名称，第2列为页码（左右空格会被自动去除）。<br>
+</div>
+{% endblock %}

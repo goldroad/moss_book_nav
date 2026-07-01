@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>书籍目录【数据在books.xlsx中】</h2>
+<form method="post" action="{{ url_for('import_catalog_books') }}" enctype="multipart/form-data" style="margin:10px 0;">
+  <div class="row" style="align-items:center;">
+    <div>
+      <input type="file" name="books_xlsx" accept=".xlsx" required>
+    </div>
+    <label><input type="checkbox" name="clear" checked> 导入前清空历史数据</label>
+    <button class="btn primary" type="submit">导入书籍</button>
+  </div>
+  <div class="muted" style="margin-top:6px;">【注意】导入书籍后，需要重新导入页码表格！</div>
+</form>
+{% endblock %}

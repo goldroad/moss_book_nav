@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>BPG_2024 苔藓系统发育树</h1>
+  
+  <div class="card">
+    <p><strong>中文标记：</strong>Future</p>
+    <p><strong>信息来源：</strong><a href="https://mp.weixin.qq.com/s/5y1hJB7nRB3tWscjJjskoQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/5y1hJB7nRB3tWscjJjskoQ</a></p>
+    <p><strong>原文：</strong><a href="https://onlinelibrary.wiley.com/doi/10.1111/jse.13063" target="_blank" rel="noopener">https://onlinelibrary.wiley.com/doi/10.1111/jse.13063</a></p>
+    <p><strong>原文：</strong><a href="https://ib.cas.cn/2019gb/kycg2019/xinzhiwu2019/202404/t20240401_7060998.html" target="_blank" rel="noopener">植物所科研人员发布基于质体基因组数据的全球苔藓植物科级分类系统</a></p>
+    <p><a href="https://life.ecnu.edu.cn/0c/6f/c41801a724079/page.htm" target="_blank" rel="noopener">我院苔藓植物研究团队领衔绘制全球首张角苔植物叶绿体基因组演化图谱，发表新物种并发布新分类系统</a></p>
+  </div>
+
+  <div class="card">
+    <h3>Figure.1A 苔类，角苔类和藓类的基部类群</h3>
+    <img src="{{ url_for('img_file', filename='phylogeny/发育树1.jpg') }}" alt="Figure.1A 苔类，角苔类和藓类的基部类群" style="max-width: 100%; height: auto; display: block; margin-top: 10px;">
+  </div>
+
+  <div class="card">
+    <h3>Figure.1B 真藓纲</h3>
+    <img src="{{ url_for('img_file', filename='phylogeny/发育树2.jpg') }}" alt="Figure.1B 真藓纲" style="max-width: 100%; height: auto; display: block; margin-top: 10px;">
+  </div>
+
+    <div class="card">
+    <h3>角苔植物叶绿体基因组演化图谱</h3>
+    <img src="{{ url_for('img_file', filename='phylogeny/角苔植物叶绿体基因组演化图谱.jpg') }}" alt="角苔植物叶绿体基因组演化图谱（中文标注：包子）" style="max-width: 100%; height: auto; display: block; margin-top: 10px;">
+  </div>
+
+{% endblock %}

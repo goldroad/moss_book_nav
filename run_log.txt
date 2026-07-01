@@ -1,0 +1,9 @@
+[启动] 选定端口 9303
+[DEBUG] Flask app module: <module 'app' from 'C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\_MEI308802\\app.py'>
+[DEBUG] Routes: ['/static/<path:filename>', '/mindmap', '/', '/importpages', '/browse', '/img/<path:filename>', '/delete_book/<int:book_id>', '/catalog', '/importbooks', '/catalog/import', '/taxonomy', '/restart', '/phylogeny', '/resources', '/about']
+[DEBUG] DB_PATH: E:\BaiduSyncdisk\00code\booknavi-苔藓名称导航\dist\booknavi.db
+[DEBUG] template_folder: C:\Users\ADMINI~1\AppData\Local\Temp\_MEI308802\templates
+[DEBUG] static_folder: C:\Users\ADMINI~1\AppData\Local\Temp\_MEI308802\static
+ * Serving Flask app 'app'
+ * Debug mode: off
+[就绪] Flask 服务已启动，端口 9303

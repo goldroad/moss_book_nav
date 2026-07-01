@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>按书籍浏览</h2>
+<form method="get" action="{{ url_for('browse') }}">
+  <div class="row">
+    <div class="col">
+      <select class="input" name="book_id" onchange="this.form.submit()">
+        {% for b in books %}
+          <option value="{{ b.id }}" {% if b.id == selected_id %}selected{% endif %}>{{ b.book_name }}（{{ b.data_count }}条）{% if b.has_pdf %} [PDF]{% endif %}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div style="display:flex; align-items:center; padding-left:8px;">
+      {% if selected_book and selected_book.cover_image %}
+        <img src="{{ url_for('img_file', filename=selected_book.cover_image) }}" alt="{{ selected_book.book_name }} 封面" style="width:25px; height:25px; object-fit:cover; border:1px solid #d0d7de; border-radius:4px;">
+      {% endif %}
+    </div>
+  </div>
+</form>
+
+{% if selected_book %}
+  <p class="muted" style="display:flex; align-items:center; gap:6px;">当前：{% if selected_book.cover_image %}<img src="{{ url_for('img_file', filename=selected_book.cover_image) }}" alt="{{ selected_book.book_name }} 封面" style="width:25px; height:25px; object-fit:cover; border:1px solid #d0d7de; border-radius:4px;">{% endif %} <span>{{ selected_book.book_name }}</span>（{{ selected_book.data_count }}条）{% if selected_book.has_pdf %}<span style="margin-left:6px; display:inline-block; padding:0 6px; font-size:12px; line-height:18px; border-radius:4px; background:#ffebe9; color:#6a1b1a; border:1px solid #ffd1cf;">PDF</span>{% endif %} · 总条目：{{ mosses|length }}</p>
+  {% if mosses %}
+    <div class="card">
+      {% for m in mosses %}
+        <div>· {{ m.name }} ｜ 页码：
+          {% for item in m.page_items %}
+            <code>{{ item.page }}</code>{% if item.pdf %}（PDF：<code>{{ item.pdf }}</code>）{% endif %}{% if not loop.last %}、{% endif %}
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="flash error">未找到数据。</div>
+  {% endif %}
+{% else %}
+  <div class="flash error">请先选择书籍。</div>
+{% endif %}
+{% endblock %}

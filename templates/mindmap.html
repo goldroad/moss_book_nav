@@ -1,0 +1,266 @@
+{% extends 'base.html' %}
+{% block body_class %}page-taxonomy{% endblock %}
+{% block content %}
+<h2>名录脑图版（支持模糊搜索；双击+号可展开全部子节点）</h2>
+<div class="row" style="margin-bottom:10px; display:flex; align-items:center;">
+  <input id="mmSearchInput" class="input" type="text" placeholder="输入名称（门/纲/目/科/属/种）进行定位" autofocus style="background-color: #e6ffed; width:25em; margin-right:10px;">
+  <button id="mmSearchBtn" class="btn primary" type="button" style="margin-right:10px;">查找</button>
+  <button id="mmCollapseAllBtn" class="btn" type="button">全部折叠</button>
+</div>
+<div id="mmStatus" class="muted" style="margin-bottom:8px;"></div>
+<div id="mmMap" class="mm-map"></div>
+
+<script>
+(function(){
+  const TREE_DATA = {{ mindmap_data|safe }};
+  const NAME_INDEX = {{ mindmap_index|safe }};
+
+  const mapEl = document.getElementById('mmMap');
+  const statusEl = document.getElementById('mmStatus');
+  const inputEl = document.getElementById('mmSearchInput');
+  const btnEl = document.getElementById('mmSearchBtn');
+  const collapseBtn = document.getElementById('mmCollapseAllBtn');
+
+  function collapseAll(){
+    // 清除高亮与状态
+    mapEl.querySelectorAll('.mm-node.highlight').forEach(el=>el.classList.remove('highlight'));
+    statusEl.textContent = '';
+    // 折叠所有分支下的子容器（保留根容器）
+    const childContainers = mapEl.querySelectorAll(':scope .mm-branch > .mm-children');
+    childContainers.forEach(children=>{
+      children.style.display = 'none';
+      const node = children.previousElementSibling; // .mm-node
+      if(node && node.classList){
+        node.classList.remove('expanded');
+        const toggle = node.querySelector(':scope .mm-toggle');
+        if(toggle && !toggle.disabled){ toggle.textContent = '+'; }
+      }
+    });
+  }
+
+  collapseBtn.addEventListener('click', collapseAll);
+
+  // 渲染一个分支（节点及其子树），默认子节点不渲染，点击展开后按需渲染
+  function renderBranch(name, subtree){
+    const branch = document.createElement('div');
+    branch.className = 'mm-branch';
+
+    const node = document.createElement('div');
+    node.className = 'mm-node';
+
+    const toggle = document.createElement('button');
+    toggle.className = 'mm-toggle';
+    toggle.type = 'button';
+
+    const hasChildren = subtree && typeof subtree === 'object' && Object.keys(subtree).length > 0;
+    toggle.textContent = hasChildren ? '+' : '';
+    toggle.disabled = !hasChildren;
+    toggle.title = hasChildren ? '展开/折叠子节点' : '无下一级';
+
+    const label = document.createElement('span');
+    label.className = 'mm-label';
+    label.dataset.name = name;
+    label.textContent = name;
+
+    node.appendChild(toggle);
+    node.appendChild(label);
+
+    const children = document.createElement('div');
+    children.className = 'mm-children';
+    children.style.display = 'none';
+
+    // 懒加载：首次展开时再创建子节点
+    let initialized = false;
+
+    function ensureChildren(){
+      if(initialized) return;
+      initialized = true;
+      if(hasChildren){
+        const keys = Object.keys(subtree);
+        keys.forEach((k)=>{
+          const v = subtree[k];
+          // 叶子（值为 null）也作为节点显示，但没有 toggle
+          children.appendChild(renderBranch(k, v));
+        });
+      }
+    }
+
+    // 单击：展开/折叠直接子节点
+    toggle.addEventListener('click', function(e){
+      e.stopPropagation();
+      if(!hasChildren) return;
+      if(children.style.display === 'none'){
+        ensureChildren();
+        children.style.display = '';
+        node.classList.add('expanded');
+        toggle.textContent = '−';
+      }else{
+        children.style.display = 'none';
+        node.classList.remove('expanded');
+        toggle.textContent = '+';
+      }
+    });
+
+    // 双击：展开所有子节点
+    toggle.addEventListener('dblclick', function(e){
+      e.stopPropagation();
+      if(!hasChildren) return;
+      
+      // 先确保当前节点已展开
+      if(children.style.display === 'none'){
+        ensureChildren();
+        children.style.display = '';
+        node.classList.add('expanded');
+        toggle.textContent = '−';
+      }
+      
+      // 递归展开所有子节点
+      function expandAllChildNodes(childrenContainer) {
+        const childBranches = childrenContainer.querySelectorAll('.mm-branch');
+        childBranches.forEach(branch => {
+          const childToggle = branch.querySelector('.mm-toggle:not([disabled])');
+          const childChildren = branch.querySelector('.mm-children');
+          const childNode = branch.querySelector('.mm-node');
+          
+          if(childToggle && childChildren.style.display === 'none') {
+            // 确保子节点已初始化
+            const childBranch = childNode.closest('.mm-branch');
+            const childBranchChildren = childBranch.querySelector('.mm-children');
+            
+            // 模拟点击来展开子节点
+            childToggle.click();
+            
+            // 递归处理下一级
+            if(childBranchChildren) {
+              expandAllChildNodes(childBranchChildren);
+            }
+          }
+        });
+      }
+      
+      // 开始展开所有子节点
+      expandAllChildNodes(children);
+    });
+
+    // 移除标签点击事件，确保只有点击+/-符号才触发折叠/展开
+
+    branch.appendChild(node);
+    branch.appendChild(children);
+    return branch;
+  }
+
+  // 根层：可能存在多个根（如“植物界”等），默认不展开
+  function renderRoots(){
+    mapEl.innerHTML = '';
+    const roots = Object.keys(TREE_DATA);
+    const rootContainer = document.createElement('div');
+    rootContainer.className = 'mm-children';
+    roots.forEach((r)=>{
+      rootContainer.appendChild(renderBranch(r, TREE_DATA[r]));
+    });
+    mapEl.appendChild(rootContainer);
+  }
+
+  // 工具：正则转义
+  function escapeRegExp(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+  // 清除所有文本高亮
+  function clearTextHighlights(){
+    mapEl.querySelectorAll('.mm-label').forEach(lbl=>{
+      if(lbl && lbl.dataset && typeof lbl.dataset.name !== 'undefined'){
+        lbl.innerHTML = lbl.dataset.name;
+      }
+    });
+    mapEl.querySelectorAll('.mm-node.highlight').forEach(el=>el.classList.remove('highlight'));
+  }
+  // 应用文本高亮（大小写不敏感）
+  function applyTextHighlight(labelEl, keyword){
+    const name = labelEl.dataset.name || labelEl.textContent || '';
+    const re = new RegExp(escapeRegExp(keyword), 'gi');
+    labelEl.innerHTML = name.replace(re, function(m){ return '<mark class="mm-text-highlight">'+m+'</mark>'; });
+  }
+
+  // 模糊查询：匹配包含关键词的任意名称，展开所有命中路径并高亮匹配字符
+  function searchFuzzy(keyword){
+    const q = (keyword || '').trim();
+    if(!q){ statusEl.textContent = '请输入要查找的名称'; return; }
+    // 先清理旧高亮
+    clearTextHighlights();
+
+    // 收集匹配的名称集合
+    const matchedNames = Object.keys(NAME_INDEX).filter(n => n.toLowerCase().includes(q.toLowerCase()));
+    if(matchedNames.length === 0){ statusEl.textContent = '未找到：' + q; return; }
+
+    // 保证根容器存在
+    let container = mapEl.querySelector(':scope > .mm-children');
+    if(!container){ renderRoots(); container = mapEl.querySelector(':scope > .mm-children'); }
+
+    const highlightedNodes = [];
+
+    // 对每个匹配名称，展开其所有路径
+    matchedNames.forEach(name => {
+      const entries = NAME_INDEX[name] || [];
+      entries.forEach(entry => {
+        const path = entry.path.slice();
+        let parentChildren = container;
+        let targetNode = null;
+        for(let i=0; i<path.length; i++){
+          const segment = path[i];
+          let branch = null;
+          const branches = parentChildren.children;
+          for(let j=0; j<branches.length; j++){
+            const b = branches[j];
+            const lbl = b.querySelector(':scope > .mm-node .mm-label');
+            if(lbl && (lbl.dataset.name || lbl.textContent) === segment){ branch = b; break; }
+          }
+          if(!branch){
+            const subtree = getSubtreeByPath(path.slice(0, i+1));
+            branch = renderBranch(segment, subtree);
+            parentChildren.appendChild(branch);
+          }
+          const node = branch.querySelector(':scope > .mm-node');
+          const toggle = branch.querySelector(':scope > .mm-node .mm-toggle');
+          const children = branch.querySelector(':scope > .mm-children');
+          // 展开此层
+          if(toggle && !toggle.disabled && children.style.display === 'none'){
+            toggle.click();
+          }
+          parentChildren = children;
+          targetNode = node;
+        }
+        if(targetNode){
+          targetNode.classList.add('highlight');
+          const labelEl = targetNode.querySelector(':scope .mm-label');
+          if(labelEl){ applyTextHighlight(labelEl, q); }
+          highlightedNodes.push(targetNode);
+        }
+      });
+    });
+
+    // 滚动到第一个命中的节点
+    if(highlightedNodes.length > 0){
+      highlightedNodes[0].scrollIntoView({behavior:'smooth', block:'center', inline:'start'});
+    }
+    statusEl.textContent = '模糊匹配：' + q + '，命中 ' + matchedNames.length + ' 个名称（可能对应多条路径）';
+  }
+
+  function getSubtreeByPath(path){
+    let node = TREE_DATA;
+    for(const key of path){
+      if(!node || typeof node !== 'object') return null;
+      node = node[key];
+    }
+    return node;
+  }
+
+  btnEl.addEventListener('click', function(){
+    const q = (inputEl.value || '').trim();
+    if(!q){ statusEl.textContent = '请输入要查找的名称'; return; }
+    searchFuzzy(q);
+  });
+  inputEl.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ btnEl.click(); }});
+
+  // 初始渲染：默认全部折叠，仅显示根层节点，不自动展开
+  renderRoots();
+})();
+</script>
+{% endblock %}
