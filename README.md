@@ -4,6 +4,8 @@
 
 # 苔藓名称导航系统
 
+![项目截图](img/view.jpg)
+
 基于 Python + Flask + SQLite 的本地检索工具，用于按苔藓名称快速定位多本书籍中的页码，并集成苔藓名称数据库（来源：sp2000.org.cn）。无需安装额外服务，双击启动即可使用。
 
 提供**桌面版(.exe)** 和 **网页版** 两种启动方式。
@@ -94,9 +96,8 @@ taskkill /f /t /im python.exe
 - 依赖：`pip install -r requirements.txt`
 
 ### 打包命令
-```
-pyinstaller --clean 苔藓名称导航.spec
-```
+
+使用`build.bat`打包。
 
 产物位于 `dist\苔藓名称导航.exe`（单文件，约 29MB）。
 
