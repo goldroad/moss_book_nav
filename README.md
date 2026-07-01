@@ -125,10 +125,6 @@ pyinstaller --clean 苔藓名称导航_debug.spec
 - 如需支持其他书籍或报错改进，请在公众号留言。
 - 如果数据有错误或者遗漏，请在公众号留言。
 
-## 许可协议
-除另有说明外，本项目文档与页面内容采用 CC BY-NC-SA 4.0 国际许可协议进行许可：
-https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh
-
 ---
-版权所有：八方网域-无涯
+版权所有：包子
 最后更新：2026-07-01
