@@ -1,0 +1,139 @@
+# ============================================
+# 苔藓名称导航 - Git 忽略规则
+# ============================================
+
+# ----- Python -----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+python-build/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+*.manifest
+*.spec
+
+# ----- 虚拟环境 -----
+venv/
+env/
+ENV/
+.env
+.envrc
+
+# ----- PyInstaller 构建产物 -----
+/build/
+/dist/
+*.exe
+*.pkg
+*.toc
+*.pyz
+localpycs/
+xref-*.html
+warn-*.txt
+base_library.zip
+Analysis-*
+PKG-*
+PYZ-*
+EXE-*
+
+# ----- 数据库文件 -----
+*.db
+*.sqlite
+*.sqlite3
+*.db-shm
+*.db-wal
+
+# ----- 日志和运行时文件 -----
+*.log
+*.pid
+*.bak
+run_log.txt
+run_err.txt
+diag_out.txt
+diag_err.txt
+app.pid
+
+# ----- 打包压缩文件 -----
+*.zip
+*.7z
+*.rar
+*.tar.gz
+*.baiduyun.uploading.cfg
+
+# ----- IDE 和编辑器 -----
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+*.sublime-workspace
+*.sublime-project
+
+# ----- Windows -----
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ----- macOS -----
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# ----- 临时文件 -----
+*.tmp
+*.temp
+.tmp/
+.temp/
+
+# ----- 系统文件 -----
+System Volume Information/
+pagefile.sys
+hiberfil.sys
+
+# ----- Office 临时文件 ~$开头 -----
+~$*.docx
+~$*.xlsx
+~$*.pptx
+~$*.doc
+~$*.xls
+~$*.ppt
+
+# ----- 快捷方式 -----
+*.lnk
+
+# ----- 本项目特定忽略 -----
+# 过程文件（开发临时文件）
+过程文件/
+
+# 旧版 PyInstaller 构建脚本和配置
+_debug_build.bat
+_setup_cef_hook.ps1
+desktop_app.py
+start_desktop.bat
+苔藓名称导航.spec
+苔藓名称导航_debug.spec
+
+# 旧版数据文件
+moss2025.json
+
+# 桌面版启动脚本
+start_desktop.bat
